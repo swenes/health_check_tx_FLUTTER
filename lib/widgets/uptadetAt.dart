@@ -4,26 +4,24 @@ import '../model/transaction_model.dart';
 import '../utils/constants.dart';
 
 class TextResUpdatedAt extends StatefulWidget {
-  TextResUpdatedAt({super.key});
+  const TextResUpdatedAt({super.key});
 
   @override
   State<TextResUpdatedAt> createState() => _TextResUpdatedAtState();
 }
 
-late final Future<List<TransactionModel>> _transactionList =
-    Service.getTransactionList();
-
 class _TextResUpdatedAtState extends State<TextResUpdatedAt> {
+  final Future<TransactionModel> transaction = Service.getTransactionModel();
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<TransactionModel>>(
-      future: _transactionList,
+    return FutureBuilder<TransactionModel>(
+      future: transaction,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var transactionList = snapshot.data!;
-          dynamic transaction = transactionList[0]; //çok sıkıntılı bi kullanım
+          dynamic transactionData = snapshot.data;
           return Text(
-            transaction.updatedAt,
+            transactionData.updatedAt,
             style:
                 TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
           );

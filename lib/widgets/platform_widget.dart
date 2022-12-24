@@ -10,20 +10,18 @@ class TextResPlatform extends StatefulWidget {
   State<TextResPlatform> createState() => _TextResPlatformState();
 }
 
-late final Future<List<TransactionModel>> _transactionList =
-    Service.getTransactionList();
-
 class _TextResPlatformState extends State<TextResPlatform> {
+  final Future<TransactionModel> transaction = Service.getTransactionModel();
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<TransactionModel>>(
-      future: _transactionList,
+    return FutureBuilder<TransactionModel>(
+      future: transaction,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var transactionList = snapshot.data!;
-          dynamic transaction = transactionList[0]; //çok sıkıntılı bi kullanım
+          dynamic transactionData = snapshot.data;
           return Text(
-            transaction.platform + ' ' + transaction.kernelArch,
+            transactionData.platform + ' ' + transactionData.kernelArch,
             style:
                 TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
           );

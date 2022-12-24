@@ -3,32 +3,30 @@ import 'package:healthcheck_tx_api/service/service.dart';
 import '../model/transaction_model.dart';
 import '../utils/constants.dart';
 
-class textResCreatedAt extends StatefulWidget {
-  textResCreatedAt({super.key});
+class TextResCreatedAt extends StatefulWidget {
+  TextResCreatedAt({super.key});
 
   @override
-  State<textResCreatedAt> createState() => _textResCreatedAtState();
+  State<TextResCreatedAt> createState() => _TextResCreatedAtState();
 }
 
-late final Future<List<TransactionModel>> _transactionList =
-    Service.getTransactionList();
+class _TextResCreatedAtState extends State<TextResCreatedAt> {
+  final Future<TransactionModel> transaction = Service.getTransactionModel();
 
-class _textResCreatedAtState extends State<textResCreatedAt> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<TransactionModel>>(
-      future: _transactionList,
+    return FutureBuilder<TransactionModel>(
+      future: transaction,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var transactionList = snapshot.data!;
-          dynamic transaction = transactionList[0]; //çok sıkıntılı bi kullanım
+          dynamic transactionData = snapshot.data;
           return Text(
-            transaction.createdAt,
+            transactionData.createdAt,
             style:
                 TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
           );
         } else if (snapshot.hasError) {
-          return const Text('Hata var');
+          return const Center(child: Text('Bir Hata Oluştu'));
         } else {
           return const Center(child: CircularProgressIndicator());
         }

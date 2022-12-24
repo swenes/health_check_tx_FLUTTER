@@ -31,49 +31,39 @@ String yuzdeBos = '';
 double tempYuzdeKullanilan = 0; // tip dönüşümü için kullandım
 
 // ignore: unused_element
-late Future<List<TransactionModel>> _transactionList;
 
 class _RamScreenState extends State<RamScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _transactionList = Service.getTransactionList();
+  final Future<TransactionModel> transaction = Service.getTransactionModel();
+
+  int selectedIndex = 0;
+
+  void onSelectedIndex(value) {
+    setState(() {
+      selectedIndex = value;
+    });
   }
 
-  @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "MEMORY INFORMATION",
-            style: Constants.titleStyle.copyWith(
-              color: Constants.scaffoldBG,
-            ),
-          ),
-          centerTitle: true,
-          elevation: 5,
-        ),
-        body: getMemoryInfos());
+    return getMemoryInfos();
   }
 
-  FutureBuilder<List<TransactionModel>> getMemoryInfos() {
-    return FutureBuilder<List<TransactionModel>>(
-      future: _transactionList,
+  FutureBuilder<TransactionModel> getMemoryInfos() {
+    return FutureBuilder<TransactionModel>(
+      future: transaction,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var transactionList = snapshot.data!;
           return ListView.builder(
             itemCount: 1,
             itemBuilder: (context, index) {
-              dynamic transaction = transactionList[index];
+              dynamic transactionData = snapshot.data;
 
-              totalRamOS = transaction.memory.total;
+              totalRamOS = transactionData.memory.total;
               totalRamKB = totalRamOS / 1024;
               totalRamMB = totalRamKB / 1024;
               totalRamGB = totalRamMB / 1024;
 
-              bostakiRamOS = transaction.memory.free;
+              bostakiRamOS = transactionData.memory.free;
               bostakiRamKB = bostakiRamOS / 1024;
               bostakiRamMB = bostakiRamKB / 1024;
               bostakiRamGB = bostakiRamMB / 1024;
@@ -124,8 +114,6 @@ class _RamScreenState extends State<RamScreen> {
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         } else {
-          var time = DateTime.now();
-          debugPrint(time.toString());
           return const Center(child: CircularProgressIndicator());
         }
       },
@@ -134,7 +122,7 @@ class _RamScreenState extends State<RamScreen> {
 
   Container restartButton() {
     return Container(
-      height: 70,
+      height: 60,
       width: double.infinity,
       decoration: BoxDecoration(
           color: Constants.darkBlue, borderRadius: BorderRadius.circular(10)),
@@ -153,7 +141,7 @@ class _RamScreenState extends State<RamScreen> {
                 },
                 icon: Icon(
                   Icons.replay_outlined,
-                  size: 50,
+                  size: 45,
                   color: Constants.scaffoldBG,
                 )),
           ),
@@ -174,7 +162,7 @@ class AspectRadio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 10 / 9,
+      aspectRatio: 12 / 9,
       child: DChartPie(
         data: data.map((e) {
           return {'domain': e['isim'], 'measure': e['sonuc']};
