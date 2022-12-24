@@ -20,10 +20,15 @@ class _TextResHostnameState extends State<TextResHostname> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           dynamic transactionData = snapshot.data;
-          return Text(
-            transactionData.hostname,
-            style:
-                TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              transactionData.hostname,
+              style: TextStyle(
+                color: Constants.brown,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           );
         } else if (snapshot.hasError) {
           return const Text('Hata var');

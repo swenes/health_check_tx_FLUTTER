@@ -1,8 +1,10 @@
+import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:healthcheck_tx_api/service/service.dart';
 import 'package:healthcheck_tx_api/utils/constants.dart';
 
 import '../model/transaction_model.dart';
+import '../widgets/restartButton.dart';
 
 class CpuScreen extends StatefulWidget {
   const CpuScreen({super.key});
@@ -12,124 +14,168 @@ class CpuScreen extends StatefulWidget {
 }
 
 final Future<TransactionModel> transaction = Service.getTransactionModel();
+bool isExpansionOpen = false;
 
 class _CpuScreenState extends State<CpuScreen> {
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text('CPU USAGE'),
+    return FutureBuilder<TransactionModel>(
+      future: transaction,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          dynamic transactionData = snapshot.data;
+
+          String user = transactionData.cpuS.user;
+          String nice = transactionData.cpuS.nice;
+          String system = transactionData.cpuS.system;
+          String idle = transactionData.cpuS.idle;
+
+          return Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/background.jpg'),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Card(
+                    shadowColor: Constants.darkBlue,
+                    color: Constants.buttonColor,
+                    elevation: 3,
+                    child: ExpansionTile(
+                      onExpansionChanged: (value) {
+                        isExpansionOpen = value;
+                        setState(() {});
+                      },
+                      // initiallyExpanded: true,
+                      title: Text(
+                        'CPU USAGE',
+                        textAlign: TextAlign.center,
+                        style: Constants.titleStyle.copyWith(fontSize: 20),
+                      ),
+                      leading: Icon(
+                        Icons.add_chart_sharp,
+                        color: Constants.darkBlue,
+                      ),
+                      childrenPadding:
+                          const EdgeInsets.only(top: 10, bottom: 15),
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              'Intel(R) Core(TM) i5-7200U CPU @ 2,50GHz',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Idle: %$idle',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Constants.scaffoldBG,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'User: %$user',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Constants.scaffoldBG,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'System :% $system',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Constants.scaffoldBG,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Nice: %$nice',
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Constants.scaffoldBG,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  isExpansionOpen
+                      ? const SizedBox.shrink()
+                      : Text(
+                          'Intel(R) Core(TM) i5-7200U CPU @ 2,50GHz',
+                          style: Theme.of(context).textTheme.overline!.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                        ),
+                  AspectRatio(
+                    aspectRatio: 12 / 9,
+                    child: DChartPie(
+                      data: [
+                        {'domain': 'User', 'measure': double.parse(user)},
+                        {'domain': 'Nice', 'measure': double.parse(nice)},
+                        {'domain': 'System', 'measure': double.parse(system)},
+                        {'domain': 'Idle', 'measure': double.parse(idle)},
+                      ],
+                      fillColor: (pieData, index) {
+                        switch (pieData['domain']) {
+                          case 'User':
+                            return Colors.green;
+                          case 'Nice':
+                            return Colors.orange;
+                          case 'System':
+                            return Colors.blue;
+                          case 'Idle':
+                            return Colors.pink;
+                          default:
+                            return Colors.red;
+                        }
+                      },
+                      donutWidth: 45,
+                      animate: true,
+                      animationDuration: const Duration(seconds: 1),
+                      labelPosition: PieLabelPosition.outside,
+                      labelFontSize: 17,
+                      showLabelLine: true,
+                      strokeWidth: 5,
+                      labelLinelength: 25,
+                      labelLineColor: Colors.white,
+                      labelColor: Colors.white,
+                      pieLabel: (Map<dynamic, dynamic> pieData, int? index) {
+                        return '${pieData['domain']}\n%${pieData['measure']}';
+                      },
+                    ),
+                  ),
+                  isExpansionOpen
+                      ? const SizedBox.shrink()
+                      : RestartButton(
+                          onTap: () {
+                            setState(() {});
+                          },
+                        )
+                ],
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Text('Hata var');
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
-    //   return FutureBuilder<List<TransactionModel>>(
-    //     future: _transactionList,
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         var transactionList = snapshot.data!;
-    //         List<Cpu> cpuList = transactionList[0].cpuS.toList();
-
-    //         return ListView.builder(
-    //           itemCount: cpuList.length,
-    //           itemBuilder: (context, index) {
-    //             var model = cpuList[index].model;
-    //             var speed = cpuList[index].speed;
-    //             var timeUser = cpuList[index].times.user;
-    //             var timeNice = cpuList[index].times.nice;
-    //             var timeSys = cpuList[index].times.sys;
-    //             var timeIdle = cpuList[index].times.idle;
-    //             var timeIrd = cpuList[index].times.irq;
-
-    //             return Padding(
-    //               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-    //               child: Column(
-    //                 children: [
-    //                   const SizedBox(height: 15),
-    //                   Card(
-    //                       shadowColor: Constants.darkRed,
-    //                       color: Colors.white,
-    //                       elevation: 3,
-    //                       child: ExpansionTile(
-    //                         title: Text(model, style: Constants.normalStyle),
-    //                         subtitle: Text(speed.toString(),
-    //                             style: Constants.normalStyle.copyWith(
-    //                                 fontWeight: FontWeight.w400, fontSize: 16)),
-    //                         leading: const Icon((Icons.add_chart_outlined)),
-    //                         trailing: const Icon(Icons.arrow_downward_outlined),
-    //                         children: [
-    //                           Padding(
-    //                             padding: const EdgeInsets.only(
-    //                                 left: 16, right: 16, bottom: 20),
-    //                             child: Container(
-    //                               decoration: BoxDecoration(
-    //                                 color: const Color.fromARGB(70, 188, 96, 162),
-    //                                 borderRadius: BorderRadius.circular(15),
-    //                               ),
-    //                               height: 200,
-    //                               width: 340,
-    //                               child: Padding(
-    //                                 padding: const EdgeInsets.all(8.0),
-    //                                 child: Column(
-    //                                   crossAxisAlignment:
-    //                                       CrossAxisAlignment.center,
-    //                                   mainAxisAlignment:
-    //                                       MainAxisAlignment.spaceAround,
-    //                                   children: [
-    //                                     Text(
-    //                                       'About Times',
-    //                                       style: Constants.normalStyle
-    //                                           .copyWith(fontSize: 20),
-    //                                     ),
-    //                                     Text(
-    //                                       'CPU User: $timeUser',
-    //                                       style: Constants.normalStyle,
-    //                                     ),
-    //                                     Text('CPU Nice: $timeNice',
-    //                                         style: Constants.normalStyle),
-    //                                     Text('CPU Sys: $timeSys',
-    //                                         style: Constants.normalStyle),
-    //                                     Text('CPU Idle: $timeIdle',
-    //                                         style: Constants.normalStyle),
-    //                                     Text('CPU Ird: $timeIrd',
-    //                                         style: Constants.normalStyle),
-    //                                   ],
-    //                                 ),
-    //                               ),
-    //                             ),
-    //                           )
-    //                         ],
-    //                       ))
-    //                 ],
-    //               ),
-    //             );
-    //           },
-    //         );
-    //       } else if (snapshot.hasError) {
-    //         return const Text('Hata var');
-    //       } else {
-    //         return const Center(child: CircularProgressIndicator());
-    //       }
-    //     },
-    //   );
-    // }
-
-    // ExpansionTile buildExpansionTile(List<Cpu> cpuList, int index) {
-    //   return ExpansionTile(
-    //     title: Text(cpuList[index].model),
-    //     subtitle: Text(cpuList[index].speed.toString()),
-    //     leading: const Icon((Icons.add_chart_outlined)),
-    //     trailing: const Icon(Icons.arrow_downward_outlined),
-    //     children: [
-    //       Padding(
-    //         padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-    //         child: Container(
-    //           decoration: BoxDecoration(
-    //             color: const Color.fromARGB(70, 188, 96, 162),
-    //             borderRadius: BorderRadius.circular(15),
-    //           ),
-    //           height: 200,
-    //           width: 340,
-    //         ),
-    //       )
-    //     ],
-    //   );
-    // }
   }
 }

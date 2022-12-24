@@ -20,8 +20,8 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
   @override
   void initState() {
     super.initState();
-    ramScreen = RamScreen();
-    cpuScreen = CpuScreen();
+    ramScreen = const RamScreen();
+    cpuScreen = const CpuScreen();
     sayfalar = [ramScreen, cpuScreen];
   }
 
@@ -29,27 +29,26 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         currentIndex: selectedIndex,
         onTap: onSelectedIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            label: 'ram',
-            icon: Icon(Icons.abc),
+            label: 'Ram',
+            icon: Icon(Icons.air_outlined),
           ),
           BottomNavigationBarItem(
-            label: 'cpu',
-            icon: Icon(Icons.abc),
+            label: 'Cpu',
+            icon: Icon(Icons.add_chart_outlined),
           ),
         ],
       ),
       appBar: AppBar(
         title: Text(
-          selectedIndex == 0 ? "MEMORY INFORMATION" : "CPU INFORMATİON",
+          selectedIndex == 0 ? "Memory Information" : "Cpu Information",
           style: Constants.titleStyle.copyWith(
               color: Constants.scaffoldBG, fontWeight: FontWeight.w500),
         ),
-        centerTitle: true,
-        elevation: 5,
       ),
       body: sayfalar[selectedIndex],
     );

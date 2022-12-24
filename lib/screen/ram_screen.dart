@@ -2,6 +2,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:healthcheck_tx_api/model/transaction_model.dart';
 import 'package:healthcheck_tx_api/service/service.dart';
+import 'package:healthcheck_tx_api/widgets/restartButton.dart';
 
 import '../utils/constants.dart';
 
@@ -45,7 +46,15 @@ class _RamScreenState extends State<RamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return getMemoryInfos();
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage('assets/images/background.jpg'),
+        ),
+      ),
+      child: getMemoryInfos(),
+    );
   }
 
   FutureBuilder<TransactionModel> getMemoryInfos() {
@@ -84,6 +93,7 @@ class _RamScreenState extends State<RamScreen> {
                 {'isim': 'used', 'sonuc': forDataYuzdeKullanilan},
               ];
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 30),
                   Text(
@@ -105,7 +115,11 @@ class _RamScreenState extends State<RamScreen> {
                   const SizedBox(height: 30),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: restartButton(),
+                    child: RestartButton(
+                      onTap: () {
+                        setState(() {});
+                      },
+                    ),
                   )
                 ],
               );
@@ -114,39 +128,12 @@ class _RamScreenState extends State<RamScreen> {
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            color: Constants.buttonColor,
+          ));
         }
       },
-    );
-  }
-
-  Container restartButton() {
-    return Container(
-      height: 60,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Constants.darkBlue, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Tap to Restart',
-            style: Constants.titleStyle.copyWith(color: Constants.scaffoldBG),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {});
-                },
-                icon: Icon(
-                  Icons.replay_outlined,
-                  size: 45,
-                  color: Constants.scaffoldBG,
-                )),
-          ),
-        ],
-      ),
     );
   }
 }

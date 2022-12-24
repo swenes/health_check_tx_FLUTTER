@@ -22,8 +22,10 @@ class _TextResPlatformState extends State<TextResPlatform> {
           dynamic transactionData = snapshot.data;
           return Text(
             transactionData.platform + ' ' + transactionData.kernelArch,
-            style:
-                TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: Constants.brown,
+              fontWeight: FontWeight.w500,
+            ),
           );
         } else if (snapshot.hasError) {
           return const Text('Hata var');

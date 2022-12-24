@@ -22,8 +22,10 @@ class _TextResCreatedAtState extends State<TextResCreatedAt> {
           dynamic transactionData = snapshot.data;
           return Text(
             transactionData.createdAt,
-            style:
-                TextStyle(color: Constants.brown, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: Constants.brown,
+              fontWeight: FontWeight.w500,
+            ),
           );
         } else if (snapshot.hasError) {
           return const Center(child: Text('Bir Hata Oluştu'));

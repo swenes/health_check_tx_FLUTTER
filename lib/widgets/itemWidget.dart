@@ -30,7 +30,7 @@ class ItemWidget extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Constants.darkBlue),
+                    color: Colors.cyan.shade200),
                 textAlign: TextAlign.center,
               ),
             ),

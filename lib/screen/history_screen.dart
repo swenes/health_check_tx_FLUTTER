@@ -14,11 +14,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "HISTORY INFORMATIONS",
+          "History Usage",
           style: TextStyle(color: Constants.scaffoldBG),
         ),
-        centerTitle: true,
-        elevation: 5,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage('assets/images/background.jpg'),
+          ),
+        ),
       ),
     );
   }
