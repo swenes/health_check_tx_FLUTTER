@@ -1,16 +1,2 @@
-# healthcheck_tx_api
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It is an application where you can get data about the computer based on the API support provided by my teammate, have the system calculate the time between the last two logs with the check system button and check whether your system is up.  
+It has been developed to realize earlier when a server crashes and to minimize data loss.
