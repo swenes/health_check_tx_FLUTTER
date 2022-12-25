@@ -12,6 +12,7 @@ class Constants {
   static Color buttonColor = const Color.fromARGB(173, 255, 104, 17);
   static Color textresreqColor = Colors.teal.shade300;
   static Color appBarColor = const Color.fromARGB(226, 64, 6, 6);
+  static Color expansionTile = const Color.fromARGB(115, 226, 174, 53);
 
   static final TextStyle titleStyle =
       TextStyle(color: scaffoldBG, fontSize: 24, fontWeight: FontWeight.w900);

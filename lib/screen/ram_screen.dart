@@ -85,6 +85,8 @@ class _RamScreenState extends State<RamScreen> {
               yuzdeKullanilan =
                   ((100 * kullanilanRamMB) / totalRamMB).toStringAsFixed(0);
               yuzdeBos = (100 - tempYuzdeKullanilan).toStringAsFixed(0);
+              // var forDataYuzdeKullanilan = int.parse(yuzdeKullanilan);
+              // var forDataYuzdeBos = int.parse(yuzdeBos);
 
               final data = [
                 {'isim': 'Free', 'sonuc': 20}, //forDataYuzdeBos
@@ -111,7 +113,7 @@ class _RamScreenState extends State<RamScreen> {
                   ),
                   const SizedBox(height: 40),
                   AspectRadio(data: data),
-                  const SizedBox(height: 38),
+                  const SizedBox(height: 100),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: RestartButton(

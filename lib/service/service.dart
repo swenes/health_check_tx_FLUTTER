@@ -35,4 +35,29 @@ class Service {
       return Future.error(e.error);
     }
   }
+
+  static Future<List<TransactionModel>> getTransactionModelList() async {
+    // history kısmı için gerkeli
+    try {
+      List<TransactionModel> transactionList = [];
+      var response = await Dio().get(url);
+
+      if (response.statusCode == 200) {
+        var dataString = response.toString();
+        var transList = await jsonDecode(dataString);
+
+        var dataCount = transList['data'].lenght;
+
+        for (int i = 0; i < dataCount; i++) {
+          TransactionModel transactionModel =
+              TransactionModel.fromMap(transList['data'][i]);
+          transactionList.add(transactionModel);
+        }
+      }
+
+      return transactionList;
+    } on DioError catch (e) {
+      return Future.error(e.error);
+    }
+  }
 }

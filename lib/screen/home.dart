@@ -24,212 +24,167 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Service.getTransactionModel();
-    return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 5,
-      //   title: Padding(
-      //     padding: const EdgeInsets.only(top: 185.0, left: 7),
-      //     child: Text(
-      //       "H E A L T H   C H E C K",
-      //       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-      //           color: Constants.scaffoldBG,
-      //           fontWeight: FontWeight.bold,
-      //           fontSize: 35,
-      //           shadows: [
-      //             BoxShadow(
-      //               blurRadius: 4,
-      //               color: Constants.buttonColor,
-      //               offset: const Offset(-3, 3),
-      //             ),
-      //           ]),
-      //     ),
-      //   ),
-      //   toolbarHeight: 230,
-      //   backgroundColor: Constants.darkBlue,
-      //   flexibleSpace: FlexibleSpaceBar(
-      //     background: Container(
-      //       color: Constants.darkBlue,
-      //       child: Padding(
-      //         padding: const EdgeInsets.only(
-      //           top: 40,
-      //           bottom: 60,
-      //           left: 20,
-      //           right: 20,
-      //         ),
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: [
-      //             Row(
-      //               children: [textReq('Hostname: '), const TextResHostname()],
-      //             ),
-      //             Row(
-      //               children: [textReq('Platform: '), const TextResPlatform()],
-      //             ), // sonuna cpu archı direkt $
-      //             //parametre olarak geç zaten 3 harf dönüyor x64 x32 vs
-      //             Row(
-      //               children: [textReq('Created At: '), TextResCreatedAt()],
-      //             ),
-      //             Row(
-      //               children: [
-      //                 textReq('Updated At: '),
-      //                 const TextResUpdatedAt()
-      //               ],
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/images/background.jpg'),
-          ),
-        ),
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           children: [
-            Container(
-              height: 265,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('assets/images/darkbackground.jpg'),
+            Expanded(
+              flex: 33,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/darkbackground.jpg'),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          textReq('Hostname: '),
+                          const TextResHostname(),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          textReq('Platform: '),
+                          const TextResPlatform(),
+                        ],
+                      ), // sonuna cpu archı direkt $
+                      //parametre olarak geç zaten 3 harf dönüyor x64 x32 vs
+                      Row(
+                        children: [
+                          textReq('Created At: '),
+                          const TextResCreatedAt()
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          textReq('Updated At: '),
+                          const TextResUpdatedAt()
+                        ],
+                      ),
+                      Row(
+                        children: [textReq('Uptime: '), const TextResUptime()],
+                      ),
+
+                      Text(
+                        "H E A L T H   C H E C K",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                                color: Constants.scaffoldBG,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35,
+                                shadows: [
+                              BoxShadow(
+                                blurRadius: 4,
+                                color: Constants.buttonColor,
+                                offset: const Offset(-3, 3),
+                              ),
+                            ]),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 50, bottom: 10),
+            ),
+            Expanded(
+              flex: 67,
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/background.jpg'),
+                  ),
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        textReq('Hostname: '),
-                        const TextResHostname(),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const CpuRamScreen();
+                                },
+                              ),
+                            );
+                          },
+                          child: const ItemWidget(
+                            title: "TECH INFO",
+                            path: "assets/images/cpu.jpg",
+                          ),
+                        ),
+                        const SizedBox(width: 25),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return (const LoadBalanceScreen());
+                                },
+                              ),
+                            );
+                          },
+                          child: const ItemWidget(
+                              title: 'LOAD BALANCE',
+                              path: "assets/images/cpu2.jpg"),
+                        ),
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        textReq('Platform: '),
-                        const TextResPlatform(),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return (const HistoryScreen());
+                                },
+                              ),
+                            );
+                          },
+                          child: const ItemWidget(
+                              title: 'HISTORY USAGE',
+                              path: "assets/images/history2.jpg"),
+                        ),
+                        const SizedBox(width: 25),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return (const AboutAs());
+                                },
+                              ),
+                            );
+                          },
+                          child: const ItemWidget(
+                            title: 'ABOUT AS',
+                            path: "assets/images/about_us.jpg",
+                          ),
+                        ),
                       ],
-                    ), // sonuna cpu archı direkt $
-                    //parametre olarak geç zaten 3 harf dönüyor x64 x32 vs
-                    Row(
-                      children: [
-                        textReq('Created At: '),
-                        const TextResCreatedAt()
-                      ],
                     ),
-                    Row(
-                      children: [
-                        textReq('Updated At: '),
-                        const TextResUpdatedAt()
-                      ],
-                    ),
-                    Row(
-                      children: [textReq('Uptime: '), const TextResUptime()],
-                    ),
-
-                    Text(
-                      "H E A L T H   C H E C K",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(
-                              color: Constants.scaffoldBG,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 35,
-                              shadows: [
-                            BoxShadow(
-                              blurRadius: 4,
-                              color: Constants.buttonColor,
-                              offset: const Offset(-3, 3),
-                            ),
-                          ]),
-                    ),
+                    const ButtonReq()
                   ],
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const CpuRamScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: const ItemWidget(
-                    title: "TECH INFO",
-                    path: "assets/images/cpu.jpg",
-                  ),
-                ),
-                const SizedBox(width: 25),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return (const LoadBalanceScreen());
-                        },
-                      ),
-                    );
-                  },
-                  child: const ItemWidget(
-                      title: 'LOAD BALANCE', path: "assets/images/cpu2.jpg"),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return (const HistoryScreen());
-                        },
-                      ),
-                    );
-                  },
-                  child: const ItemWidget(
-                      title: 'HISTORY USAGE',
-                      path: "assets/images/history2.jpg"),
-                ),
-                const SizedBox(width: 25),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return (const AboutAs());
-                        },
-                      ),
-                    );
-                  },
-                  child: const ItemWidget(
-                    title: 'ABOUT AS',
-                    path: "assets/images/about_us.jpg",
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const ButtonReq()
+            )
           ],
         ),
       ),
@@ -269,23 +224,5 @@ class ButtonReq extends StatelessWidget {
             ?.copyWith(color: Colors.white),
       ),
     );
-
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 5),
-    //   child: Container(
-    //       height: 50,
-    //       width: 250,
-    //       decoration: BoxDecoration(
-    //           color: Constants.darkBlue,
-    //           borderRadius: BorderRadius.circular(20)),
-    //       child: Center(
-    //     child: Text(
-    //   "CHECK SYSTEM",
-    //   style: Theme.of(context)
-    //       .textTheme
-    //       .headline6
-    //       ?.copyWith(color: Colors.white),
-    // ))),
-    // );
   }
 }

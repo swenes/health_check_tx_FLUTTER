@@ -43,8 +43,7 @@ class _CpuScreenState extends State<CpuScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Card(
-                    shadowColor: Constants.darkBlue,
-                    color: Constants.buttonColor,
+                    color: Constants.expansionTile,
                     elevation: 3,
                     child: ExpansionTile(
                       onExpansionChanged: (value) {
