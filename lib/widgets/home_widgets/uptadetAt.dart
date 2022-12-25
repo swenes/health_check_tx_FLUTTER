@@ -1,16 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:healthcheck_tx_api/service/service.dart';
-import '../model/transaction_model.dart';
-import '../utils/constants.dart';
+import '../../model/transaction_model.dart';
+import '../../utils/constants.dart';
 
-class TextResCreatedAt extends StatefulWidget {
-  TextResCreatedAt({super.key});
+class TextResUpdatedAt extends StatefulWidget {
+  const TextResUpdatedAt({super.key});
 
   @override
-  State<TextResCreatedAt> createState() => _TextResCreatedAtState();
+  State<TextResUpdatedAt> createState() => _TextResUpdatedAtState();
 }
 
-class _TextResCreatedAtState extends State<TextResCreatedAt> {
+class _TextResUpdatedAtState extends State<TextResUpdatedAt> {
   final Future<TransactionModel> transaction = Service.getTransactionModel();
 
   @override
@@ -21,16 +23,20 @@ class _TextResCreatedAtState extends State<TextResCreatedAt> {
         if (snapshot.hasData) {
           dynamic transactionData = snapshot.data;
           return Text(
-            transactionData.createdAt,
+            transactionData.updatedAt,
             style: TextStyle(
               color: Constants.brown,
               fontWeight: FontWeight.w500,
             ),
           );
         } else if (snapshot.hasError) {
-          return const Center(child: Text('Bir Hata Oluştu'));
+          return const Text('Hata var');
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            strokeWidth: 1,
+            color: Theme.of(context).errorColor,
+          ));
         }
       },
     );

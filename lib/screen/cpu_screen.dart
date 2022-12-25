@@ -135,11 +135,11 @@ class _CpuScreenState extends State<CpuScreen> {
                           case 'User':
                             return Colors.green;
                           case 'Nice':
-                            return Colors.orange;
+                            return Colors.black;
                           case 'System':
-                            return Colors.blue;
+                            return Colors.amber;
                           case 'Idle':
-                            return Colors.pink;
+                            return Colors.deepPurpleAccent;
                           default:
                             return Colors.red;
                         }

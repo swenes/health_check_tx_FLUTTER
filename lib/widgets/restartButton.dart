@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
@@ -15,7 +17,7 @@ class RestartButton extends StatelessWidget {
   ) {
     return MaterialButton(
       shape: const StadiumBorder(),
-      color: Constants.darkBlue,
+      color: Constants.buttonColor,
       minWidth: 250,
       height: 50,
       onPressed: onTap,

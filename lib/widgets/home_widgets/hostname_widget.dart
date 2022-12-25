@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthcheck_tx_api/service/service.dart';
-import '../model/transaction_model.dart';
-import '../utils/constants.dart';
+import '../../model/transaction_model.dart';
+import '../../utils/constants.dart';
 
 class TextResHostname extends StatefulWidget {
   const TextResHostname({super.key});
@@ -33,7 +33,11 @@ class _TextResHostnameState extends State<TextResHostname> {
         } else if (snapshot.hasError) {
           return const Text('Hata var');
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            strokeWidth: 1,
+            color: Theme.of(context).errorColor,
+          ));
         }
       },
     );

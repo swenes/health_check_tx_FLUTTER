@@ -29,7 +29,7 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 218, 218, 218),
         currentIndex: selectedIndex,
         onTap: onSelectedIndex,
         items: const <BottomNavigationBarItem>[
@@ -45,10 +45,8 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
       ),
       appBar: AppBar(
         title: Text(
-          selectedIndex == 0 ? "Memory Information" : "Cpu Information",
-          style: Constants.titleStyle.copyWith(
-              color: Constants.scaffoldBG, fontWeight: FontWeight.w500),
-        ),
+            selectedIndex == 0 ? "Memory Information" : "Cpu Information",
+            style: TextStyle(color: Constants.scaffoldBG)),
       ),
       body: sayfalar[selectedIndex],
     );

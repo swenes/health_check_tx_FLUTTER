@@ -29,11 +29,18 @@ class _AboutAsState extends State<AboutAs> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Who Are We ?',
-              style: Theme.of(context).textTheme.headline3?.copyWith(
-                    fontSize: 40,
-                    color: Constants.scaffoldBG,
-                  ),
+              'W h o  A r e  W e ?',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: Constants.scaffoldBG,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  shadows: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Constants.buttonColor,
+                      offset: const Offset(-4, 4),
+                    ),
+                  ]),
             ),
             const ExpansionWhoAreWe(
               adSoyad: 'Enes AYDOĞDU',

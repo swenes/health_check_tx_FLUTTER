@@ -85,34 +85,33 @@ class _RamScreenState extends State<RamScreen> {
               yuzdeKullanilan =
                   ((100 * kullanilanRamMB) / totalRamMB).toStringAsFixed(0);
               yuzdeBos = (100 - tempYuzdeKullanilan).toStringAsFixed(0);
-              var forDataYuzdeKullanilan = int.parse(yuzdeKullanilan);
-              var forDataYuzdeBos = int.parse(yuzdeBos);
 
               final data = [
-                {'isim': 'free', 'sonuc': forDataYuzdeBos},
-                {'isim': 'used', 'sonuc': forDataYuzdeKullanilan},
+                {'isim': 'Free', 'sonuc': 20}, //forDataYuzdeBos
+                {'isim': 'Used', 'sonuc': 80}, //forDataYuzdeKullanilan
               ];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
                   Text(
-                    'Kullanılan Ram: ${kullanilanRamMB.toStringAsFixed(0)} MB',
+                    'Used Memory: ${kullanilanRamMB.toStringAsFixed(0)} MB',
                     style: Constants.titleStyle,
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Text(
-                    'Boşta olan Ram: ${bostakiRamMB.toStringAsFixed(0)} MB',
+                    'Free Memory : ${bostakiRamMB.toStringAsFixed(0)} MB',
                     style: Constants.titleStyle,
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
                   Text(
-                    'Toplam Ram: ${totalRamMB.toStringAsFixed(0)} MB',
+                    'Total Memory: ${totalRamMB.toStringAsFixed(0)} MB',
                     style: Constants.titleStyle,
                   ),
                   const SizedBox(height: 40),
                   AspectRadio(data: data),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 38),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: RestartButton(
@@ -156,28 +155,28 @@ class AspectRadio extends StatelessWidget {
         }).toList(),
         fillColor: (pieData, index) {
           switch (pieData['domain']) {
-            case 'free':
+            case 'Free':
               return Colors.green.shade700;
-            case 'used':
+            case 'Used':
               return Colors.red;
 
             default:
               return Colors.blue;
           }
         },
-        labelColor: Colors.black,
-        labelPosition: PieLabelPosition.inside,
-        labelFontSize: 15,
-        labelLineColor: Colors.black,
-        labelLineThickness: 2,
-        labelLinelength: 16,
-        labelPadding: 2,
+        labelPosition: PieLabelPosition.outside,
+        labelFontSize: 17,
+        showLabelLine: true,
+        strokeWidth: 5,
+        labelLinelength: 25,
+        labelLineColor: Colors.white,
+        labelColor: Colors.white,
         pieLabel: (Map<dynamic, dynamic> pieData, int? index) {
-          return '%${pieData['measure']}';
+          return '%${pieData['measure']}\n${pieData['domain']}';
         },
         animate: true,
         animationDuration: const Duration(seconds: 1),
-        donutWidth: 150,
+        donutWidth: 45,
       ),
     );
   }

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names
 
-import '../utils/constants.dart';
+import 'package:flutter/material.dart';
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget({

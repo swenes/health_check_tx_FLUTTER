@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:healthcheck_tx_api/service/service.dart';
-import '../model/transaction_model.dart';
-import '../utils/constants.dart';
+import '../../model/transaction_model.dart';
+import '../../utils/constants.dart';
 
-class TextResUpdatedAt extends StatefulWidget {
-  const TextResUpdatedAt({super.key});
+class TextResPlatform extends StatefulWidget {
+  const TextResPlatform({super.key});
 
   @override
-  State<TextResUpdatedAt> createState() => _TextResUpdatedAtState();
+  State<TextResPlatform> createState() => _TextResPlatformState();
 }
 
-class _TextResUpdatedAtState extends State<TextResUpdatedAt> {
+class _TextResPlatformState extends State<TextResPlatform> {
   final Future<TransactionModel> transaction = Service.getTransactionModel();
 
   @override
@@ -21,7 +21,7 @@ class _TextResUpdatedAtState extends State<TextResUpdatedAt> {
         if (snapshot.hasData) {
           dynamic transactionData = snapshot.data;
           return Text(
-            transactionData.updatedAt,
+            transactionData.platform + ' ' + transactionData.kernelArch,
             style: TextStyle(
               color: Constants.brown,
               fontWeight: FontWeight.w500,
@@ -30,7 +30,11 @@ class _TextResUpdatedAtState extends State<TextResUpdatedAt> {
         } else if (snapshot.hasError) {
           return const Text('Hata var');
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            strokeWidth: 1,
+            color: Theme.of(context).errorColor,
+          ));
         }
       },
     );
