@@ -12,6 +12,9 @@ class DependenciesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dependencies'),
+      ),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(

@@ -132,14 +132,14 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return (DependenciesScreen());
+                                  return (const HistoryScreen());
                                 },
                               ),
                             );
                           },
                           child: const ItemWidget(
-                              title: 'Dependencies',
-                              path: "assets/images/cpu2.jpg"),
+                              title: 'History usages',
+                              path: "assets/images/history2.jpg"),
                         ),
                       ],
                     ),
@@ -152,14 +152,14 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return (const HistoryScreen());
+                                  return (DependenciesScreen());
                                 },
                               ),
                             );
                           },
                           child: const ItemWidget(
-                              title: 'History usages',
-                              path: "assets/images/history2.jpg"),
+                              title: 'Dependencies',
+                              path: "assets/images/dependencies.jpg"),
                         ),
                         const SizedBox(width: 25),
                         GestureDetector(
