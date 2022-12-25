@@ -1,8 +1,8 @@
 class TransactionHistoryModel {
-  final String createdAt;
+  final String createdAt; //
   final String updatetAt;
 
-  final int uptime;
+  final int uptime; //
   //cpu
   final String user;
   final String nice;

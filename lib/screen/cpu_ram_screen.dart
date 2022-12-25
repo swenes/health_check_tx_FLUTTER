@@ -17,15 +17,16 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
   late List<Widget> sayfalar;
   late RamScreen ramScreen;
   late CpuScreen cpuScreen;
-  late DependenciesScreen dependenciesScreen;
 
   @override
   void initState() {
     super.initState();
     ramScreen = const RamScreen();
     cpuScreen = const CpuScreen();
-    dependenciesScreen = DependenciesScreen();
-    sayfalar = [ramScreen, cpuScreen, dependenciesScreen];
+    sayfalar = [
+      ramScreen,
+      cpuScreen,
+    ];
   }
 
   @override
@@ -43,10 +44,6 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
           BottomNavigationBarItem(
             label: 'Cpu',
             icon: Icon(Icons.add_chart_outlined),
-          ),
-          BottomNavigationBarItem(
-            label: 'Dependencies',
-            icon: Icon(Icons.polyline_rounded),
           ),
         ],
       ),
@@ -71,9 +68,7 @@ class _CpuRamScreenState extends State<CpuRamScreen> {
       case 1:
         return Text('Cpu Information',
             style: TextStyle(color: Constants.scaffoldBG));
-      case 2:
-        return Text('Dependencies',
-            style: TextStyle(color: Constants.scaffoldBG));
+
       default:
         return const Text('App Bar');
     }

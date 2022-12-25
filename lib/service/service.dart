@@ -7,7 +7,6 @@ class Service {
 
   static Future<TransactionModel> getTransactionModel() async {
     try {
-      //  List<TransactionModel> transactionList = [];
       late TransactionModel transactionModel;
       var response = await Dio().get(url);
 
@@ -18,26 +17,15 @@ class Service {
 
         transactionModel =
             TransactionModel.fromMap(transList['data'][lastDataIndex - 1]);
-
-        // ------bütün listeyi tutmak bu proje için gereksiz olacak.
-        // var dataCount = transList['data'].lenght;
-        // for (int i = 0; i < dataCount; i++) {
-        //   TransactionModel transactionModel =
-        //       TransactionModel.fromMap(transList['data'][i]);
-        //   transactionList.add(transactionModel);
-        // }
-
       }
 
       return transactionModel;
-      //  return transactionList;
     } on DioError catch (e) {
       return Future.error(e.error);
     }
   }
 
   static Future<List<TransactionModel>> getTransactionModelList() async {
-    // history kısmı için gerkeli
     try {
       List<TransactionModel> transactionList = [];
       var response = await Dio().get(url);
@@ -46,7 +34,7 @@ class Service {
         var dataString = response.toString();
         var transList = await jsonDecode(dataString);
 
-        var dataCount = transList['data'].lenght;
+        var dataCount = transList['data'].length; //14 döner ise
 
         for (int i = 0; i < dataCount; i++) {
           TransactionModel transactionModel =

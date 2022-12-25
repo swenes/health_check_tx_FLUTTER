@@ -33,7 +33,7 @@ class _TextResPlatformState extends State<TextResPlatform> {
           return Center(
               child: CircularProgressIndicator(
             strokeWidth: 1,
-            color: Theme.of(context).errorColor,
+            color: Constants.buttonColor,
           ));
         }
       },

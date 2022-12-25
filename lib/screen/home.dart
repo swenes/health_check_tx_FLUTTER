@@ -11,7 +11,7 @@ import 'package:healthcheck_tx_api/widgets/home_widgets/uptadetAt.dart';
 import 'package:healthcheck_tx_api/widgets/home_widgets/uptime.dart';
 
 import '../widgets/itemWidget.dart';
-import 'load_balance.dart';
+import 'dependencies_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
                             );
                           },
                           child: const ItemWidget(
-                            title: "TECH INFO",
+                            title: "Technical Info",
                             path: "assets/images/cpu.jpg",
                           ),
                         ),
@@ -132,13 +132,13 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return (const LoadBalanceScreen());
+                                  return (DependenciesScreen());
                                 },
                               ),
                             );
                           },
                           child: const ItemWidget(
-                              title: 'LOAD BALANCE',
+                              title: 'Dependencies',
                               path: "assets/images/cpu2.jpg"),
                         ),
                       ],
@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
                             );
                           },
                           child: const ItemWidget(
-                              title: 'HISTORY USAGE',
+                              title: 'History usages',
                               path: "assets/images/history2.jpg"),
                         ),
                         const SizedBox(width: 25),
@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
                             );
                           },
                           child: const ItemWidget(
-                            title: 'ABOUT AS',
+                            title: 'About Us',
                             path: "assets/images/about_us.jpg",
                           ),
                         ),

@@ -36,7 +36,7 @@ class _TextResHostnameState extends State<TextResHostname> {
           return Center(
               child: CircularProgressIndicator(
             strokeWidth: 1,
-            color: Theme.of(context).errorColor,
+            color: Constants.buttonColor,
           ));
         }
       },

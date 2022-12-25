@@ -131,6 +131,7 @@ class _RamScreenState extends State<RamScreen> {
         } else {
           return Center(
               child: CircularProgressIndicator(
+            strokeWidth: 1,
             color: Constants.buttonColor,
           ));
         }

@@ -50,15 +50,20 @@ class _CpuScreenState extends State<CpuScreen> {
                         isExpansionOpen = value;
                         setState(() {});
                       },
-                      // initiallyExpanded: true,
+                      iconColor: Colors.white,
                       title: Text(
                         'CPU USAGE',
                         textAlign: TextAlign.center,
-                        style: Constants.titleStyle.copyWith(fontSize: 20),
+                        style: Constants.titleStyle
+                            .copyWith(color: Colors.white, fontSize: 20),
                       ),
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.add_chart_sharp,
-                        color: Constants.darkBlue,
+                        color: Colors.tealAccent,
+                      ),
+                      trailing: const Icon(
+                        Icons.keyboard_double_arrow_down_outlined,
+                        color: Colors.tealAccent,
                       ),
                       childrenPadding:
                           const EdgeInsets.only(top: 10, bottom: 15),
@@ -75,7 +80,7 @@ class _CpuScreenState extends State<CpuScreen> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              'Idle: %$idle',
+                              'Idle Usage: %$idle',
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Constants.scaffoldBG,
@@ -83,7 +88,7 @@ class _CpuScreenState extends State<CpuScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'User: %$user',
+                              'User Usage: %$user',
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Constants.scaffoldBG,
@@ -91,7 +96,7 @@ class _CpuScreenState extends State<CpuScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'System :% $system',
+                              'System Usage :% $system',
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Constants.scaffoldBG,
@@ -99,7 +104,7 @@ class _CpuScreenState extends State<CpuScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'Nice: %$nice',
+                              'Nice Usage: %$nice',
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Constants.scaffoldBG,
@@ -111,7 +116,36 @@ class _CpuScreenState extends State<CpuScreen> {
                     ),
                   ),
                   isExpansionOpen
-                      ? const SizedBox.shrink()
+                      ? SizedBox(
+                          height: 100,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                'LOAD BALANCE',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                  'Per a minute: %${transactionData.loadavg.m1} Average',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Constants.scaffoldBG)),
+                              Text(
+                                  'Per 5 minutes: %${transactionData.loadavg.m5} Average',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Constants.scaffoldBG)),
+                              Text(
+                                  'Per 15 minutes: %${transactionData.loadavg.m15} Average',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Constants.scaffoldBG)),
+                            ],
+                          ),
+                        )
                       : Text(
                           'Intel(R) Core(TM) i5-7200U CPU @ 2,50GHz',
                           style: Theme.of(context).textTheme.overline!.copyWith(
@@ -121,10 +155,13 @@ class _CpuScreenState extends State<CpuScreen> {
                               ),
                         ),
                   AspectRatio(
-                    aspectRatio: 12 / 9,
+                    aspectRatio: 16 / 9,
                     child: DChartPie(
                       data: [
-                        {'domain': 'User', 'measure': double.parse(user)},
+                        const {
+                          'domain': 'User',
+                          'measure': 50
+                        }, // 50 yi double.parce(user) ile değiştir
                         {'domain': 'Nice', 'measure': double.parse(nice)},
                         {'domain': 'System', 'measure': double.parse(system)},
                         {'domain': 'Idle', 'measure': double.parse(idle)},
@@ -143,14 +180,14 @@ class _CpuScreenState extends State<CpuScreen> {
                             return Colors.red;
                         }
                       },
-                      donutWidth: 45,
+                      donutWidth: 25,
                       animate: true,
                       animationDuration: const Duration(seconds: 1),
                       labelPosition: PieLabelPosition.outside,
-                      labelFontSize: 17,
+                      labelFontSize: 15,
                       showLabelLine: true,
                       strokeWidth: 5,
-                      labelLinelength: 25,
+                      labelLinelength: 20,
                       labelLineColor: Colors.white,
                       labelColor: Colors.white,
                       pieLabel: (Map<dynamic, dynamic> pieData, int? index) {
@@ -172,7 +209,11 @@ class _CpuScreenState extends State<CpuScreen> {
         } else if (snapshot.hasError) {
           return const Text('Hata var');
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            color: Constants.buttonColor,
+            strokeWidth: 1,
+          ));
         }
       },
     );

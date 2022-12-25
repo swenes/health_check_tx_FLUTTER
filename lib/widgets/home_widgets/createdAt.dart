@@ -35,7 +35,7 @@ class _TextResCreatedAtState extends State<TextResCreatedAt> {
           return Center(
               child: CircularProgressIndicator(
             strokeWidth: 1,
-            color: Theme.of(context).errorColor,
+            color: Constants.buttonColor,
           ));
         }
       },
